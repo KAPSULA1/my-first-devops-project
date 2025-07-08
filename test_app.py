@@ -1,7 +1,18 @@
-from app import app  
+import pytest
+from app import app
 
-def test_home():
-    client = app.test_client()
-    response = client.get('/')
+@pytest.fixture
+def client():
+    with app.test_client() as client:
+        yield client
+
+def test_home(client):
+    response = client.get("/")
     assert response.status_code == 200
-    assert response.json == {"message": "Welcome to my first DevOps API"}
+    assert response.get_json() == {"message": "Welcome to my first DevOps API"}
+
+def test_status(client):
+    response = client.get("/status")
+    assert response.status_code == 200
+    assert response.get_json() == {"status": "OK"}
+
