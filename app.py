@@ -6,9 +6,9 @@ app = Flask(__name__)
 def home():
     return jsonify(message="Welcome to my first DevOps API")
 
-@app.route("/")
+@app.route("/status")
 def status():
-    return jsonify(status="OK"
+    return jsonify(status="OK")
 
-if __name__== "__main__"
+if __name__== "__main__":
     app.run(host="0.0.0.0", port=5000)
